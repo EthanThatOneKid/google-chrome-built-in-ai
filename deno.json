@@ -6,8 +6,14 @@
       "command": "deno run -A build.ts"
     }
   },
+  "compilerOptions": {
+    "lib": ["deno.window"]
+  },
   "imports": {
+    "@luca/esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@^0.11.0",
     "@std/fs": "jsr:@std/fs@^1.0.6",
+    "chrome-types": "npm:chrome-types@^0.1.322",
     "esbuild": "npm:esbuild@^0.24.0"
-  }
+  },
+  "exclude": ["unpacked"]
 }
