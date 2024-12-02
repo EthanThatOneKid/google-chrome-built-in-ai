@@ -1,0 +1,13 @@
+{
+  "lock": false,
+  "tasks": {
+    "build": {
+      "description": "Build Chrome Extension",
+      "command": "deno run -A build.ts"
+    }
+  },
+  "imports": {
+    "@std/fs": "jsr:@std/fs@^1.0.6",
+    "esbuild": "npm:esbuild@^0.24.0"
+  }
+}
