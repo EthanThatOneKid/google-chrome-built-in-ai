@@ -1,5 +1,6 @@
 import { exists } from "@std/fs";
 import { build } from "esbuild";
+import { replace } from "esbuild-plugin-replace";
 import { denoPlugins } from "@luca/esbuild-deno-loader";
 
 const outDirectory = "unpacked";
@@ -10,7 +11,14 @@ if (import.meta.main) {
   }
 
   await build({
-    plugins: [...denoPlugins()],
+    plugins: [
+      ...denoPlugins(),
+      replace({
+        values: {
+          "GEMINI_API_KEY": Deno.env.get("GEMINI_API_KEY")!,
+        },
+      }),
+    ],
     entryPoints: ["src/service-worker.ts"],
     outfile: `${outDirectory}/service-worker.js`,
     bundle: true,
