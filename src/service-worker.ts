@@ -26,6 +26,12 @@ chrome.contextMenus.onClicked.addListener(async (_item, tab) => {
 
   // TODO: Call Chrome Built-in AI API >:3
   console.log({ value });
+
+  // Uncaught (in promise) InvalidStateError: The session cannot be created.
+  const llm = await createLLM();
+  const result = await llm.prompt(value);
+
+  console.log({ result });
 });
 
 function requestActiveElement(tabID: number): Promise<ResponseActiveElement> {
@@ -33,4 +39,18 @@ function requestActiveElement(tabID: number): Promise<ResponseActiveElement> {
     tabID,
     { type: "request-active-element" } satisfies RequestActiveElement,
   );
+}
+
+function createLLM(): Promise<any> {
+  return (chrome as any).aiOriginTrial.languageModel.create({
+    systemPrompt:
+      "You are a helpful assistant that lives inside of a Chrome Extension " +
+      "that interprets the active editable element in a tab and generates " +
+      "exactly the right text to assist the user, given the context.",
+    monitor(m: any) {
+      m.addEventListener("downloadprogress", (e: any) => {
+        console.log(`Downloaded ${e.loaded} of ${e.total} bytes.`);
+      });
+    },
+  });
 }

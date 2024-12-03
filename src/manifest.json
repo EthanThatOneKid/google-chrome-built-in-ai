@@ -3,7 +3,7 @@
   "manifest_version": 3,
   "name": "google-chrome-built-in-ai",
   "version": "0.0.1",
-  "permissions": ["contextMenus"],
+  "permissions": ["contextMenus", "aiLanguageModelOriginTrial"],
   "background": {
     "service_worker": "service-worker.js"
   },
