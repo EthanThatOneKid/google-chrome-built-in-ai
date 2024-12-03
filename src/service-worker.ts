@@ -2,6 +2,7 @@ import type * as _ from "chrome-types";
 import type { RequestActiveElement, ResponseActiveElement } from "./types.ts";
 
 // https://developer.chrome.com/docs/extensions/develop/ui/context-menu
+// https://developer.chrome.com/docs/extensions/ai/prompt-api
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({

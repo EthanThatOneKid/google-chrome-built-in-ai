@@ -23,5 +23,12 @@ if (import.meta.main) {
     bundle: true,
   });
 
-  await Deno.copyFile("src/manifest.json", `${outDirectory}/manifest.json`);
+  const manifest = JSON.parse(await Deno.readTextFile("src/manifest.json"));
+  manifest["trial_tokens"] = [
+    Deno.env.get("TRIAL_TOKEN_PROMPT_API_FOR_CHROME_EXTENSIONS")!,
+  ];
+  await Deno.writeTextFile(
+    `${outDirectory}/manifest.json`,
+    JSON.stringify(manifest),
+  );
 }

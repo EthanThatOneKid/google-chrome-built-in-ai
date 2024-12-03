@@ -3,7 +3,7 @@
   "tasks": {
     "build": {
       "description": "Build Chrome Extension",
-      "command": "deno run -A build.ts"
+      "command": "deno run -A --env build.ts"
     }
   },
   "compilerOptions": {

@@ -3,7 +3,11 @@ import type { RequestAny, ResponseActiveElement } from "./types.ts";
 let lastActiveElement: Element | null = null;
 
 chrome.runtime.onMessage.addListener(
-  (request: RequestAny, _sender, sendResponse) => {
+  (
+    request: RequestAny,
+    _sender,
+    sendResponse: (response: ResponseActiveElement) => void,
+  ) => {
     switch (request.type) {
       case "request-active-element": {
         if (document.activeElement === null) {
@@ -11,10 +15,7 @@ chrome.runtime.onMessage.addListener(
         }
 
         lastActiveElement = document.activeElement;
-        const activeValue = editable(lastActiveElement).get();
-        (sendResponse as (response: ResponseActiveElement) => void)({
-          value: activeValue,
-        });
+        sendResponse({ value: editable(lastActiveElement).get() });
 
         return true;
       }
