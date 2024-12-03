@@ -1,4 +1,4 @@
-import { exists } from "@std/fs";
+import { exists, expandGlob } from "@std/fs";
 import { build } from "esbuild";
 import { pluginReplace } from "@espcom/esbuild-plugin-replace";
 import { denoPlugins } from "@luca/esbuild-deno-loader";
@@ -31,6 +31,10 @@ if (import.meta.main) {
     outfile: `${outDirectory}/content-script.js`,
     bundle: true,
   });
+
+  for await (const file of expandGlob("src/*.png")) {
+    await Deno.copyFile(file.path, `${outDirectory}/${file.name}`);
+  }
 
   const manifest = JSON.parse(await Deno.readTextFile("src/manifest.json"));
   manifest["trial_tokens"] = [
