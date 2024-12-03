@@ -47,24 +47,23 @@ function editable(element: Element): EditableValue {
   ) {
     return {
       get: () => element.value,
-      set: (value: string) => (element.value = value),
+      set: (value: string) =>
+        setEditableValue(element as HTMLInputElement, value),
     };
   }
 
   if (element.getAttribute("contenteditable") === "true") {
     return {
       get: () => element.textContent || "",
-      set: (value: string) => (element.textContent = value),
+      set: (value: string) =>
+        setEditableValue(element as HTMLInputElement, value),
     };
   }
 
   throw new Error("Element is not editable");
 }
 
-function _setEditableValue(inputElement: HTMLInputElement, newValue: string) {
-  // TODO: Update the value such that the undo stack is preserved.
-  //
-
+function setEditableValue(inputElement: HTMLInputElement, newValue: string) {
   // Select the entire value to make it easier to replace.
   inputElement?.select();
 
