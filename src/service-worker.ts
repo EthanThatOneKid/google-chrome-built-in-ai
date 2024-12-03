@@ -46,8 +46,8 @@ function createLLM(): Promise<any> {
   return (chrome as any).aiOriginTrial.languageModel.create({
     systemPrompt:
       "You are a helpful assistant that lives inside of a Chrome Extension " +
-      "that interprets the active editable element in a tab and generates " +
-      "exactly the right text to assist the user, given the context.",
+      "that interprets the active editable element's current value in a tab" +
+      "and generates exactly the right text to assist the user, given the context.",
     monitor(m: any) {
       m.addEventListener("downloadprogress", (e: any) => {
         console.log(`Downloaded ${e.loaded} of ${e.total} bytes.`);
