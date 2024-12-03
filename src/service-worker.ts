@@ -1,5 +1,5 @@
 import type * as _ from "chrome-types";
-import type { RequestActiveElement } from "./types.ts";
+import type { RequestActiveElement, ResponseActiveElement } from "./types.ts";
 
 // https://developer.chrome.com/docs/extensions/develop/ui/context-menu
 
@@ -12,18 +12,24 @@ chrome.runtime.onInstalled.addListener(() => {
   });
 });
 
-chrome.contextMenus.onClicked.addListener(async (item, tab) => {
+chrome.contextMenus.onClicked.addListener(async (_item, tab) => {
   if (tab?.id === undefined) {
     return;
   }
 
   // Send message to tab with the editable item.
-  const response = await chrome.tabs.sendMessage(
-    tab.id,
-    {
-      type: "request-active-element",
-    } satisfies RequestActiveElement,
-  );
+  const { value } = await requestActiveElement(tab.id);
+  if (!value) {
+    return;
+  }
 
-  console.log({ response, item });
+  // TODO: Call Chrome Built-in AI API >:3
+  console.log({ value });
 });
+
+function requestActiveElement(tabID: number): Promise<ResponseActiveElement> {
+  return chrome.tabs.sendMessage(
+    tabID,
+    { type: "request-active-element" } satisfies RequestActiveElement,
+  );
+}

@@ -1,5 +1,7 @@
 import type { RequestAny, ResponseActiveElement } from "./types.ts";
 
+let lastActiveElement: Element | null = null;
+
 chrome.runtime.onMessage.addListener(
   (request: RequestAny, _sender, sendResponse) => {
     switch (request.type) {
@@ -8,7 +10,8 @@ chrome.runtime.onMessage.addListener(
           throw new Error("No active element");
         }
 
-        const activeValue = editable(document.activeElement).get();
+        lastActiveElement = document.activeElement;
+        const activeValue = editable(lastActiveElement).get();
         (sendResponse as (response: ResponseActiveElement) => void)({
           value: activeValue,
         });
