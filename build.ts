@@ -16,5 +16,12 @@ if (import.meta.main) {
     bundle: true,
   });
 
+  await build({
+    plugins: [...denoPlugins()],
+    entryPoints: ["src/content-script.ts"],
+    outfile: `${outDirectory}/content-script.js`,
+    bundle: true,
+  });
+
   await Deno.copyFile("src/manifest.json", `${outDirectory}/manifest.json`);
 }

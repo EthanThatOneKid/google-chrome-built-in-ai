@@ -7,12 +7,18 @@ chrome.runtime.onInstalled.addListener(() => {
     id: "example",
     title: "Example",
     type: "normal",
-    contexts: ["all"],
+    contexts: ["editable"],
   });
 
   console.log({ example });
 });
 
-chrome.contextMenus.onClicked.addListener((item, tab) => {
-  console.log("Context menu clicked", { item, tab });
+chrome.contextMenus.onClicked.addListener(async (item, tab) => {
+  if (tab?.id === undefined) {
+    return;
+  }
+
+  // Send message to tab with the editable item.
+  const response = await chrome.tabs.sendMessage(tab.id, { greeting: "hello" });
+  console.log({ response, item });
 });
