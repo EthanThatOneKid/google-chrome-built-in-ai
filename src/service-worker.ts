@@ -42,8 +42,12 @@ function requestActiveElement(tabID: number): Promise<ResponseActiveElement> {
   );
 }
 
-function createLLM(): Promise<any> {
-  return (chrome as any).aiOriginTrial.languageModel.create({
+async function createLLM(): Promise<any> {
+  const capabilities = await (chrome as any).aiOriginTrial.languageModel
+    .capabilities();
+  console.log({ capabilities });
+
+  return await (chrome as any).aiOriginTrial.languageModel.create({
     systemPrompt:
       "You are a helpful assistant that lives inside of a Chrome Extension " +
       "that interprets the active editable element's current value in a tab" +
