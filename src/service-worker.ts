@@ -1,16 +1,15 @@
 import type * as _ from "chrome-types";
+import type { RequestActiveElement } from "./types.ts";
 
 // https://developer.chrome.com/docs/extensions/develop/ui/context-menu
 
 chrome.runtime.onInstalled.addListener(() => {
-  const example = chrome.contextMenus.create({
+  chrome.contextMenus.create({
     id: "example",
     title: "Example",
     type: "normal",
     contexts: ["editable"],
   });
-
-  console.log({ example });
 });
 
 chrome.contextMenus.onClicked.addListener(async (item, tab) => {
@@ -19,6 +18,12 @@ chrome.contextMenus.onClicked.addListener(async (item, tab) => {
   }
 
   // Send message to tab with the editable item.
-  const response = await chrome.tabs.sendMessage(tab.id, { greeting: "hello" });
+  const response = await chrome.tabs.sendMessage(
+    tab.id,
+    {
+      type: "request-active-element",
+    } satisfies RequestActiveElement,
+  );
+
   console.log({ response, item });
 });
