@@ -27,11 +27,12 @@ chrome.contextMenus.onClicked.addListener(async (_item, tab) => {
   // TODO: Call Chrome Built-in AI API >:3
   console.log({ value });
 
-  // Uncaught (in promise) InvalidStateError: The session cannot be created.
+  // InvalidStateError: The session cannot be created.
+  // TypeError: Cannot read properties of undefined (reading 'languageModel')
   const llm = await createLLM();
   const result = await llm.prompt(value);
 
-  console.log({ result });
+  console.log({ value, result });
 });
 
 function requestActiveElement(tabID: number): Promise<ResponseActiveElement> {
