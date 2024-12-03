@@ -6,13 +6,10 @@ import type {
 } from "./types.ts";
 import { createPromptAI } from "./prompt-ai.ts";
 
-// https://developer.chrome.com/docs/extensions/develop/ui/context-menu
-// https://developer.chrome.com/docs/extensions/ai/prompt-api
-
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
-    id: "example",
-    title: "Example",
+    id: "google-chrome-built-in-ai",
+    title: "Built-in AI",
     type: "normal",
     contexts: ["editable"],
   });
