@@ -9,27 +9,6 @@ language model in the browser.
 This project is only one of the many possible applications of Chrome's built-in
 AI capabilities. The extension is built using Deno and TypeScript.
 
-## Benefits of running client-side
-
-> With a built-in AI approach, it becomes trivial to perform AI tasks
-> client-side, which in turn offers the following upsides:
->
-> - **Local processing of sensitive data**: Client-side AI can improve your
->   privacy story. For example, if you work with sensitive data, you can offer
->   AI features to users with end-to-end encryption.
-> - **Snappy user experience**: In some cases, ditching the round trip to the
->   server means you can offer near-instant results. Client-side AI can be the
->   difference between a viable feature and a sub-optimal user experience.
-> - **Greater access to AI**: Your users' devices can shoulder some of the
->   processing load in exchange for more access to features. For example, if you
->   offer premium AI features, you could preview these features with client-side
->   AI so that potential customers can see the benefits of your product, without
->   additional cost to you. This hybrid approach can also help you manage
->   inference costs especially on frequently used user flows.
-> - **Offline AI usage**: Your users can access AI features even when there is
->   no internet connection. This means your sites and web apps can work as
->   expected offline or with variable connectivity.
-
 ## Development
 
 Install Deno: <https://docs.deno.com/runtime/>
@@ -71,6 +50,7 @@ Load the unpacked extension in Google Chrome:
 - <https://googlechromeai.devpost.com/resources>
 - <https://developer.chrome.com/docs/extensions/develop/ui/context-menu>
 - <https://developer.chrome.com/docs/extensions/ai/prompt-api>
+- <https://developer.chrome.com/docs/ai/built-in>
 
 ---
 
