@@ -16,7 +16,15 @@ chrome.runtime.onMessage.addListener(
 
         lastActiveElement = document.activeElement;
         sendResponse({ value: editable(lastActiveElement).get() });
+        return true;
+      }
 
+      case "request-active-element-edit": {
+        if (lastActiveElement === null) {
+          throw new Error("No active element");
+        }
+
+        editable(lastActiveElement).set(request.value);
         return true;
       }
 
@@ -51,4 +59,15 @@ function editable(element: Element): EditableValue {
   }
 
   throw new Error("Element is not editable");
+}
+
+function _setEditableValue(inputElement: HTMLInputElement, newValue: string) {
+  // TODO: Update the value such that the undo stack is preserved.
+  //
+
+  // Select the entire value to make it easier to replace.
+  inputElement?.select();
+
+  // Replace the selected value with the new value.
+  document.execCommand("insertText", false, newValue);
 }
