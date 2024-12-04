@@ -15,7 +15,10 @@ chrome.runtime.onMessage.addListener(
         }
 
         lastActiveElement = document.activeElement;
-        sendResponse({ value: editable(lastActiveElement).get() });
+        sendResponse({
+          value: editable(lastActiveElement).get(),
+          href: location.href,
+        });
         return true;
       }
 
@@ -25,6 +28,7 @@ chrome.runtime.onMessage.addListener(
         }
 
         editable(lastActiveElement).set(request.value);
+        lastActiveElement = null;
         return true;
       }
 

@@ -6,6 +6,7 @@ export interface RequestActiveElement {
 
 export interface ResponseActiveElement {
   value: string;
+  href: string;
 }
 
 export interface RequestActiveElementEdit {

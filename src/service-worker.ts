@@ -21,14 +21,14 @@ chrome.contextMenus.onClicked.addListener(async (_item, tab) => {
   }
 
   // Send message to tab with the editable item.
-  const { value } = await requestActiveElement(tab.id);
+  const { value, href } = await requestActiveElement(tab.id);
   if (!value) {
     return;
   }
 
-  // Call Chrome Built-in AI API >:3
+  // Call Chrome Built-in Prompt AI API.
   const promptAI = await createPromptAI();
-  const result = await promptAI(value);
+  const result = await promptAI(`Website URL: ${href}\n\n${value}`);
 
   // Send message to tab to update the editable item.
   await requestActiveElementEdit(tab.id, result);

@@ -15,7 +15,7 @@ if (import.meta.main) {
       pluginReplace([{
         filter: /.*/,
         replace: '"GEMINI_API_KEY"',
-        replacer: () => `"${Deno.env.get("GEMINI_API_KEY")!}"`,
+        replacer: () => `"${Deno.env.get("GEMINI_API_KEY") ?? ""}"`,
       }]),
       ...denoPlugins(),
     ],

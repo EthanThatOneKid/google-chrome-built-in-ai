@@ -32,11 +32,19 @@ export async function createPromptAI(quiet = true): Promise<PromptAI> {
     console.warn("Built-in AI is not available. Using remote AI.");
   }
 
-  return createRemotePromptAI();
+  const geminiAPIKey = "GEMINI_API_KEY";
+  if (geminiAPIKey) {
+    return createRemotePromptAI(geminiAPIKey);
+  }
+
+  return (_prompt: string) =>
+    Promise.resolve(
+      "No language model available. Please double-check your configuration.",
+    );
 }
 
-export function createRemotePromptAI(): PromptAI {
-  const genAI = new GoogleGenerativeAI("GEMINI_API_KEY");
+export function createRemotePromptAI(geminiAPIKey: string): PromptAI {
+  const genAI = new GoogleGenerativeAI(geminiAPIKey);
   const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
     systemInstruction: systemPrompt,
